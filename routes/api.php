@@ -36,3 +36,8 @@ Route::group(['prefix' => 'auth'], function() {
     Route::post('/register', [LoginController::class, 'register']);
 
 });
+
+
+Route::group(['prefix' => 'user_settings'], function() {
+    Route::get('information', );
+});
