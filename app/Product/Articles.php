@@ -15,12 +15,4 @@ class Articles{
 
 
 
-    public function test()
-    {
-
-         $articles = Article::all();
-         return response()->json($articles);
-    }
-
-
 }

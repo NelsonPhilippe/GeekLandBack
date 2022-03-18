@@ -38,7 +38,7 @@ class LoginController extends Controller
         $password = $credentials['password'];
 
         if(Auth::attempt(['email' => $mail, 'password' => $password])){
-            return app()->response("success", 200);
+            return response("success", 200);
         }
     }
 
