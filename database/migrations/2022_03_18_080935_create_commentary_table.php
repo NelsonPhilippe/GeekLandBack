@@ -18,6 +18,7 @@ class CreateCommentaryTable extends Migration
             $table->integer('article_id');
             $table->integer('user_id');
             $table->string('commentary');
+            $table->boolean('deleted');
             $table->timestamps();
         });
     }

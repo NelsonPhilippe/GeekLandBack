@@ -17,6 +17,7 @@ class CreateSoldArticleTable extends Migration
             $table->id();
             $table->integer('article_id');
             $table->integer('user_id');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
