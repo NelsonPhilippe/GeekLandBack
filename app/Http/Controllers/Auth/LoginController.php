@@ -26,8 +26,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
-        // $this->middleware('guest')->except('logout');
+        $this->middleware('auth:api', ['except' => ['authenticate', 'register', 'profile']]);
+        // $this->user = $this->guard()->user();
     }
 
 
@@ -37,9 +37,11 @@ class LoginController extends Controller
         $mail = $credentials['email'];
         $password = $credentials['password'];
 
-        if(Auth::attempt(['email' => $mail, 'password' => $password])){
-            return response("success", 200);
+        if($token = Auth::attempt(['email' => $mail, 'password' => $password])){
+            return $this->createNewToken($token);
         }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     public function register(Request $request){
@@ -65,7 +67,18 @@ class LoginController extends Controller
 
         return response('ok', 200);
 
+    }
 
+    public function profile(){
+        return response()->json(auth()->user());
+    }
 
+    protected function createNewToken($token){
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user()
+        ]);
     }
 }
