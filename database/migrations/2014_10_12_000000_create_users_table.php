@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('newsletters');
             $table->integer('rank');
-            $table->string('remember_token');
+            $table->rememberToken();
             $table->timestamps();
 
         });

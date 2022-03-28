@@ -11,34 +11,20 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
 
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    // protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['authenticate', 'register', 'profile']]);
-        // $this->user = $this->guard()->user();
-    }
-
-
     public function authenticate(Request $request){
         $credentials = $request->json()->all();
 
         $mail = $credentials['email'];
         $password = $credentials['password'];
 
-        if($token = Auth::attempt(['email' => $mail, 'password' => $password])){
-            return $this->createNewToken($token);
+        $user = User::where('email', $mail)->first();
+
+
+        if($user != null){
+            if(Hash::check($password, $user->password)){
+                $token = $user->createToken('myapptoken')->plainTextToken;
+                return $token;
+            }
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
@@ -48,6 +34,7 @@ class LoginController extends Controller
         $credentials = $request->json()->all();
 
 
+
         $username = $credentials['username'];
         $email = $credentials['mail'];
         $password = $credentials['password'];
@@ -55,17 +42,29 @@ class LoginController extends Controller
 
         $passwordEncrypted = Hash::make($password);
 
-        User::create([
-            'username' => $username,
-            'email' => $email,
-            'password' => $passwordEncrypted,
-            'newsletters' => $newsletter,
-            'rank' => 1,
-            'remember_token' => 'is a none value'
-        ]);
+
+        $user = User::where('email', $email)->first();
+
+        if($user == null){
+            $user = User::create([
+                'username' => $username,
+                'email' => $email,
+                'password' => $passwordEncrypted,
+                'newsletters' => $newsletter,
+                'rank' => 1,
+                'remember_token' => 'is a none value'
+            ]);
+
+            $token = $user->createToken('testtoken')->plainTextToken;
+
+            return response(200)->json([
+               'reponse' => 'ok',
+               'token' => $token
+            ]);
+        }
 
 
-        return response('ok', 200);
+        return response('user exist', 500);
 
     }
 
@@ -73,12 +72,4 @@ class LoginController extends Controller
         return response()->json(auth()->user());
     }
 
-    protected function createNewToken($token){
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()
-        ]);
-    }
 }
