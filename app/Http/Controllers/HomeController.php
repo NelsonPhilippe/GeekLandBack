@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Product\Articles;
 
 class HomeController extends Controller{
 
@@ -10,7 +11,7 @@ class HomeController extends Controller{
         // $this->middleware('ip');
     }
 
-    public function index(\App\Product\Articles $article){
+    public function index(Articles $article){
         return $article->get();
     }
 

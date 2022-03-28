@@ -26,4 +26,17 @@ class SettingsController extends Controller{
         return response($request->user());
     }
 
+    public function addCard(Request $request){
+        $user = $request->user();
+        $user_id = $user['id'];
+
+        $cardInfo = $request->json()->all();
+
+        $request->validate([
+
+        ]);
+
+
+    }
+
 }
