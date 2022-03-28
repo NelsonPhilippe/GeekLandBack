@@ -1,24 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 // use App\Article;
 
 use App\Models\Article;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class AdminController extends Controller{
+class AdminController extends Controller
+{
 
 
-    public function __construct(){
+    public function __construct()
+    {
     }
 
-    public function index(){
+    public function index()
+    {
         return null;
     }
 
-    public function article(){
-        $content = request()->json()->all();
+    public function createArticle(Request $request)
+    {
+
+        $user = $request->user();
+        $user_rank = (int) $user['rank'];
+
+        if ($user_rank < 1) {
+
+            return response(401)->json([
+                'error' => 'Unauthorized'
+            ]);
+        }
+
+        $content = $request->json()->all();
 
         $genre_id = $content['genre_id'];
         $name = $content['name'];
@@ -32,7 +48,7 @@ class AdminController extends Controller{
         $article2 = Article::exists($brand);
 
 
-        if(!$article || !$article2){
+        if (!$article || !$article2) {
             Article::create([
                 'genre_id' => intval($genre_id),
                 'name' => $name,
@@ -43,13 +59,12 @@ class AdminController extends Controller{
                 'brand' => $brand
             ]);
 
-            return response('ok', 200);
-
+            return response(200)->json([
+                'result' => 'article added in db'
+            ]);
         }
 
 
-        // return $article2;
-        return response('ok', 400);
+        return response(200);
     }
-
 }
