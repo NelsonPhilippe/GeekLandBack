@@ -17,9 +17,6 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'admin'], function (){
 });
 
 
-Route::group(['middleware' => 'auth:sanctum'], function (){
-    Route::get('/profile', [SettingsController::class, 'profile']);
-});
 
 Route::group(['prefix' => 'auth'], function() {
     Route::post('/login', [LoginController::class, 'authenticate']);
@@ -30,6 +27,7 @@ Route::group(['prefix' => 'auth'], function() {
 
 
 
-Route::group(['prefix' => 'user_settings'], function() {
-    // Route::get('information', );
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'settings'], function() {
+    Route::get('/profile', [SettingsController::class, 'profile']);
+    Route::post('/card_register', [SettingsController::class, 'addCard']);
 });
