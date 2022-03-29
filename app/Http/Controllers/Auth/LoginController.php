@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -29,7 +31,7 @@ class LoginController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    public function register(Request $request){
+    public function register(Request $request, Response $response){
         $credentials = $request->json()->all();
 
 
@@ -54,12 +56,15 @@ class LoginController extends Controller
                 'remember_token' => 'is a none value'
             ]);
 
-            $token = $user->createToken('testtoken')->plainTextToken;
+            $token = $user->createToken(App::environment('JWT_SECRET'))->plainTextToken;
 
-            return response(200)->json([
+            // dd($token);
+
+
+            return response()->json([
                'reponse' => 'ok',
                'token' => $token
-            ]);
+            ], 200);
         }
 
 
