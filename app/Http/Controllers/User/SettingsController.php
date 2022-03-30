@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Basket;
 use App\Models\CardsUsers;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -150,4 +151,16 @@ class SettingsController extends Controller
 
         return false;
     }
+
+
+    // public function setProfilePicture(Request $request){
+    //     $data = $request->json()->all();
+
+    //     $user_id = $request->user()['id'];
+    //     $uuid_pictures = $data['picture_uuid'];
+
+
+    // }
+
+
 }

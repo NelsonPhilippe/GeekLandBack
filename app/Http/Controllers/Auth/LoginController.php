@@ -58,8 +58,6 @@ class LoginController extends Controller
 
             $token = $user->createToken(App::environment('JWT_SECRET'))->plainTextToken;
 
-            // dd($token);
-
 
             return response()->json([
                'reponse' => 'ok',

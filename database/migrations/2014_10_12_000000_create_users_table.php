@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('newsletters');
             $table->integer('rank');
+            $table->string('url_image_profile');
             $table->rememberToken();
             $table->timestamps();
 

@@ -8,8 +8,8 @@ class Basket extends Model
 {
 
     protected $fillable = [
-        'quantity'
+        'id', 'user_id', 'article_id', 'quantity'
     ];
 
-    protected $guarded = [ 'id', 'user_id', 'article_id'];
+    protected $guarded = [ 'id', 'user_id', 'article_id', 'quantity'];
 }
