@@ -28,6 +28,42 @@ class SettingsController extends Controller
         return response($request->user());
     }
 
+    public function removeCard(){
+        $user = $request->user();
+
+        $user_id = $user['id'];
+
+        $data = $request->json()->all();
+
+        $data_user_id = $data['user_id'];
+        $data_card_id = $data['card_id'];
+
+        if($data_user_id != $user_id){
+
+            return response()->json([
+                'error' => 'Unknown error'
+            ], 500);
+        }
+
+
+        $cards = CardsUsers::where('user_id', $user_id)->get();
+
+
+        if($cards == null){
+            return response()->json([
+                'error' => 'Unknown error'
+            ], 500);
+        }
+
+        CardsUsers::where('id', $data_card_id)->delete();
+
+
+        return response()->json([
+            "response" => "data is delete"
+        ]);
+
+    }
+
     public function addCard(Request $request)
     {
         $user = $request->user();
@@ -59,7 +95,6 @@ class SettingsController extends Controller
                 $cards = CardsUsers::where('user_id', $user_id)->get();
 
 
-
                 foreach ($cards as $card) {
 
                     if (Hash::check($cardNumber, $card->card_number)) {
@@ -79,7 +114,8 @@ class SettingsController extends Controller
                 ]);
 
                 return response(200)->json([
-                    "response" => "ok"
+                    "response" => "ok",
+                    "type-card" => $type
                 ]);
 
             }
