@@ -17,7 +17,7 @@ class CreatePurchaseHistoryTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('article_id');
-            $table->integer('delivery_table');
+            $table->integer('delivery_type');
             $table->integer('price');
             $table->timestamps();
         });
