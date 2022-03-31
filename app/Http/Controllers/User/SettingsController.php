@@ -29,7 +29,7 @@ class SettingsController extends Controller
         return response($request->user());
     }
 
-    public function removeCard(){
+    public function removeCard(Request $request){
         $user = $request->user();
 
         $user_id = $user['id'];
@@ -114,20 +114,20 @@ class SettingsController extends Controller
                     "expiration" => $cardExpiration
                 ]);
 
-                return response(200)->json([
+                return response()->json([
                     "response" => "ok",
                     "type-card" => $type
-                ]);
+                ], 200);
 
             }
 
 
-            return response(500)->json([
+            return response()->json([
                 'error' => 'date is not valide'
             ], 200);
         }
 
-        return response(500)->json([
+        return response()->json([
             'error' => 'unknow type of card'
         ], 500);
     }

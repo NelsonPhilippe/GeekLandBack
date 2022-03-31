@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
-
-
+use App\Http\Controllers\User\ArticleController;
 
 Route::get('/home', [HomeController::class, 'index']);
 
@@ -29,5 +28,7 @@ Route::group(['prefix' => 'auth'], function() {
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'settings'], function() {
     Route::get('/profile', [SettingsController::class, 'profile']);
     Route::post('/card_register', [SettingsController::class, 'addCard']);
-    Route::post('/delete_card', [SettingsController::class, 'deleteCard']);
+    Route::post('/delete_card', [SettingsController::class, 'removeCard']);
+    Route::post('/additem', [ArticleController::class, 'addItemToBasket']);
+    Route::post('/remove_item', [ArticleController::class, 'removeItemToBasket']);
 });

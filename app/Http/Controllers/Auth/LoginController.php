@@ -31,7 +31,7 @@ class LoginController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    public function register(Request $request, Response $response){
+    public function register(Request $request){
         $credentials = $request->json()->all();
 
 
@@ -40,6 +40,7 @@ class LoginController extends Controller
         $email = $credentials['mail'];
         $password = $credentials['password'];
         $newsletter = $credentials['newsletter'];
+        $url = $credentials['url_image_profile'];
 
         $passwordEncrypted = Hash::make($password);
 
@@ -53,7 +54,8 @@ class LoginController extends Controller
                 'password' => $passwordEncrypted,
                 'newsletters' => $newsletter,
                 'rank' => 1,
-                'remember_token' => 'is a none value'
+                'remember_token' => 'is a none value',
+                'url_image_profile' => $url
             ]);
 
             $token = $user->createToken(App::environment('JWT_SECRET'))->plainTextToken;

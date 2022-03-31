@@ -24,9 +24,9 @@ class AdminController extends Controller
 
         if ($user_rank < 1) {
 
-            return response(401)->json([
+            return response()->json([
                 'error' => 'Unauthorized'
-            ]);
+            ], 401);
         }
 
         $content = $request->json()->all();
@@ -39,8 +39,8 @@ class AdminController extends Controller
         $production = $content['production'];
         $brand = $content['brand'];
 
-        $article = Article::exists($name);
-        $article2 = Article::exists($brand);
+        $article = Article::where('name', $name)->first();
+        $article2 = Article::where('brand', $brand)->first();
 
 
         if (!$article || !$article2) {
@@ -54,12 +54,14 @@ class AdminController extends Controller
                 'brand' => $brand
             ]);
 
-            return response(200)->json([
+            return response()->json([
                 'result' => 'article added in db'
-            ]);
+            ], 200);
         }
 
 
-        return response(200);
+        return response()->json([
+            'error' => 'article adrealy exist'
+        ], 200);
     }
 }
