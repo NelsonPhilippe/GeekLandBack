@@ -43,6 +43,8 @@ codestyle:
 
 phpunit:
   stage: test
+  dependencies:
+    - composer
   script:
     - phpunit --coverage-text --colors=never
   
