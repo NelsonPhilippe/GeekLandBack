@@ -39,14 +39,12 @@ npm:
 
 phpunit:
   stage: test
-  dependencies:
-    - composer
   script:
     - phpunit --coverage-text --colors=never
 
 codestyle:
   stage: test
-  dependencies: []
+  dependencies: [ phpunit ]
   script:
     - phpcs --standard=PSR2 --extensions=php --ignore=app/Support/helpers.php app
   
