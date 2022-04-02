@@ -1,8 +1,6 @@
 composer:
   stage: build
   image: vincentcau/laravel-docker:latest
-  tags:
-    - tag-runner1
   cache:
     key: ${CI_COMMIT_REF_SLUG}-composer
     paths:
@@ -20,8 +18,6 @@ composer:
 npm:
   stage: build
   image: vincentcau/laravel-docker:latest
-  tags:
-    - tag-runner1
   cache:
     key: ${CI_COMMIT_REF_SLUG}-npm
     paths:
@@ -45,8 +41,6 @@ testing:
   services:
     - mysql:5.7
   image: vincentcau/laravel-docker:latest    
-  tags:
-    - tag-runner1
   script:
     - ./vendor/bin/security-checker security:check
     - ./vendor/bin/phpcs --report=summary
