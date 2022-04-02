@@ -3,13 +3,13 @@ stages:
   - test
   - deploy
 
+image: lorisleiva/laravel-docker:latest
 
 composer: 
   stage: build
-  image: lorisleiva/laravel-docker:latest
   script: 
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-    - cp .env.exemple .env
+    - cp .env.example .env
     - php artisan key:generate
   cache: 
     key: ${CI_COMMIT_REF_SLUG}-composer
