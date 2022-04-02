@@ -1,50 +1,38 @@
-composer:
+stages:
+  - build
+  - deploy
+
+
+composer: 
   stage: build
-  image: vincentcau/laravel-docker:latest
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-composer
-    paths:
-      - vendor/
-  script:
+  image: lorisleiva/laravel-docker:latest
+  script: 
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-    - cp .env.example .env
+    - cp .env.exemple .env
     - php artisan key:generate
-  artifacts:
-    expire_in: 1 month
-    paths:
+  cache: 
+    key: ${CI_COMMIT_REF_SLUG}-composer
+    paths: 
       - vendor/
       - .env
-
-npm:
-  stage: build
-  image: vincentcau/laravel-docker:latest
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-npm
-    paths:
-      - node_modules/
-      #- Modules/mon-module/node_modules/ #si utilisation de modules supp.
-  script:
-    - npm install
-    - npm run production
-    - npm install && npm run production
-  artifacts:
-    expire_in: 1 month
-    paths:
-      - public/css/
-      - public/js/
-      - public/modules/
-      - public/mix-manifest.json
+    artifacts:
+      expire_in: 1 month
+      paths:
+        - node_modules/
+        - public/css/
+        - public/js/
 
 
-testing:
+phpunit:
   stage: test
-  services:
-    - mysql:5.7
-  image: vincentcau/laravel-docker:latest    
+  dependencies:
+    - composer
   script:
-    - ./vendor/bin/security-checker security:check
-    - ./vendor/bin/phpcs --report=summary
-    - php artisan migrate
-    - php artisan migrate:refresh
-    - ./vendor/phpunit/phpunit/phpunit --no-coverage
-    - php artisan code:analyse
+    - phpunit --coverage-text --colors=never
+
+codestyle:
+  stage: test
+  dependencies: []
+  script:
+    - phpcs --standard=PSR2 --extensions=php --ignore=app/Support/helpers.php app
+  
