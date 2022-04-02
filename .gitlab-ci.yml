@@ -55,6 +55,6 @@ before_script:
 
 test:
   script:
-    - php vendor/bin/phpunit --coverage-text --colors=never
+    #- php vendor/bin/phpunit --coverage-text --colors=never
 
     - npm test
