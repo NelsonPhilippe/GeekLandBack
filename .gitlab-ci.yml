@@ -39,7 +39,7 @@ before_script:
   # DB_DATABASE=project_name
   # DB_USERNAME=root
   # DB_PASSWORD=secret
-  - cp .env.testing .env
+  - cp .env.exemple .env
   # Run npm build
   # comment this out if you don't have a frontend build
   # you can change this to to your frontend building script like
