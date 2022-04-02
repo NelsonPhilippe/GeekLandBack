@@ -35,16 +35,14 @@ npm:
       - public/css/
       - public/js/
 
-      
+codestyle:
+  stage: test
+  dependencies: []
+  script:
+    - phpcs --standard=PSR2 --extensions=php --ignore=app/Support/helpers.php app      
 
 phpunit:
   stage: test
   script:
     - phpunit --coverage-text --colors=never
-
-codestyle:
-  stage: test
-  dependencies: [ phpunit ]
-  script:
-    - phpcs --standard=PSR2 --extensions=php --ignore=app/Support/helpers.php app
   
