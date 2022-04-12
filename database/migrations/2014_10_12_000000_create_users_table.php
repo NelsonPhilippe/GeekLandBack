@@ -17,6 +17,13 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username');
             $table->string('email')->unique();
+            $table->string('name');
+            $table->string('last_name');
+            $table->string('postal_adress');
+            $table->string('postal_code');
+            $table->string('city');
+            $table->string('country');
+            $table->integer('phone');
             $table->string('password');
             $table->boolean('newsletters');
             $table->integer('rank');
@@ -25,6 +32,8 @@ class CreateUsersTable extends Migration
             $table->timestamps();
 
         });
+
+
     }
 
     /**

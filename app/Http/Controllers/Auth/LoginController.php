@@ -36,8 +36,15 @@ class LoginController extends Controller
 
 
         $username = $credentials['username'];
-        $email = $credentials['mail'];
+        $email = $credentials['email'];
         $password = $credentials['password'];
+        $name = $credentials['name'];
+        $last_name = $credentials['last_name'];
+        $postal_adress= $credentials['postal_adress'];
+        $postal_code = $credentials['postal_code'];
+        $city = $credentials['city'];
+        $country = $credentials['country'];
+        $phone = $credentials['phone'];
         $newsletter = $credentials['newsletter'];
         $url = $credentials['url_image_profile'];
 
@@ -49,10 +56,17 @@ class LoginController extends Controller
         if($user == null){
             $user = User::create([
                 'username' => $username,
-                'email' => $email,
+                'mail' => $email,
                 'password' => $passwordEncrypted,
+                'name' => $name,
+                'last_name' => $last_name,
+                'postal_adress' => $postal_adress,
+                'postal_code' => $postal_code,
+                'city' => $city,
+                'country' => $country,
+                'phone' => $phone,
                 'newsletters' => $newsletter,
-                'rank' => 1,
+                'rank' => 0,
                 'remember_token' => 'is a none value',
                 'url_image_profile' => $url
             ]);
@@ -67,7 +81,9 @@ class LoginController extends Controller
         }
 
 
-        return response('user exist', 500);
+        return response()->json([
+            'response' => 'user exist'
+        ], 200);
 
     }
 
