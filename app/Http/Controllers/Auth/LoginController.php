@@ -23,7 +23,10 @@ class LoginController extends Controller
         if($user != null){
             if(Hash::check($password, $user->password)){
                 $token = $user->createToken('myapptoken')->plainTextToken;
-                return $token;
+                return response()->json([
+                    'status' => 'success',
+                    'token' => $token
+                ], 200);
             }
         }
 
@@ -56,7 +59,7 @@ class LoginController extends Controller
         if($user == null){
             $user = User::create([
                 'username' => $username,
-                'mail' => $email,
+                'email' => $email,
                 'password' => $passwordEncrypted,
                 'name' => $name,
                 'last_name' => $last_name,
@@ -75,14 +78,27 @@ class LoginController extends Controller
 
 
             return response()->json([
-               'reponse' => 'ok',
+               'status' => 'success',
                'token' => $token
             ], 200);
         }
 
 
         return response()->json([
-            'response' => 'user exist'
+            'status' => 'fail',
+            'error' => 'user exist'
+        ], 200);
+
+    }
+
+    public function removeAccount(Request $request){
+        $user = $request->user();
+
+
+        User::where('id', '=', $user->id)->delete();
+
+        return response()->json([
+            'status' => 'success'
         ], 200);
 
     }

@@ -120,4 +120,28 @@ class ArticleController extends Controller{
 
     }
 
+
+    public function getArticlesWithName(Request $request){
+
+        $data = $request->json()->all();
+
+        $articles = Article::where('name',
+        'like', '%'.$data['name'].'%',
+        'OR', 'description', 'like', '%'.$data['name'].'%')->get();
+
+        if(count(array($articles)) < 1){
+            return response()->json([
+                'status' => 'error',
+                'error' => 'not match name or description'
+            ], 200);
+        }
+
+
+        return response()->json([
+            'status' => 'success',
+            'articles' => $articles
+        ], 200);
+
+    }
+
 }
