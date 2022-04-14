@@ -125,6 +125,7 @@ class ArticleController extends Controller{
 
         $data = $request->json()->all();
 
+
         $articles = Article::where('name',
         'like', '%'.$data['name'].'%',
         'OR', 'description', 'like', '%'.$data['name'].'%')->get();

@@ -85,7 +85,7 @@ class LoginController extends Controller
 
 
         return response()->json([
-            'status' => 'fail',
+            'status' => 'error',
             'error' => 'user exist'
         ], 200);
 
