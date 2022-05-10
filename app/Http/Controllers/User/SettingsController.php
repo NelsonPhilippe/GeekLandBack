@@ -3,13 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Basket;
-use App\Models\CardsUsers;
-use App\Models\User;
+use App\Users\Settings\Card;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Jlorente\CreditCards\CreditCardValidator;
 
 class SettingsController extends Controller
 {
@@ -20,12 +15,10 @@ class SettingsController extends Controller
     }
 
 
-    public function information()
-    {
+    public function information() {
     }
 
-    public function profile(Request $request)
-    {
+    public function profile(Request $request) {
         return response($request->user());
     }
 
@@ -65,71 +58,75 @@ class SettingsController extends Controller
 
     }
 
-    public function addCard(Request $request)
+    public function addCard(Card $card)
     {
-        $user = $request->user();
-        $user_id = $user['id'];
+
+        return $card->add_card();
 
 
-        $cardInfo = $request->json()->all();
-        $cardNameOwner = $cardInfo['name'];
-        $cardNumber = $cardInfo['number'];
-        $cardExpiration = $cardInfo['expiration'];
-
-        $expirationFormated = preg_split('[/]', $cardExpiration);
-
-        $mouth = (int) $expirationFormated[0];
-        $year = (int) $expirationFormated[1];
-
-        $validator = new CreditCardValidator();
+        // $user = $request->user();
+        // $user_id = $user['id'];
 
 
+        // $cardInfo = $request->json()->all();
+        // $cardNameOwner = $cardInfo['name'];
+        // $cardNumber = $cardInfo['number'];
+        // $cardExpiration = $cardInfo['expiration'];
 
-        if ($validator->isValid($cardNumber)) {
+        // $expirationFormated = preg_split('[/]', $cardExpiration);
 
-            $type = $validator->getType($cardNumber)->getType();
+        // $mouth = (int) $expirationFormated[0];
+        // $year = (int) $expirationFormated[1];
 
-
-            if ($this->dateIsValid($mouth, $year)) {
-
-
-                $cards = CardsUsers::where('user_id', $user_id)->get();
-
-
-                foreach ($cards as $card) {
-
-                    if (Hash::check($cardNumber, $card->card_number)) {
-
-                        return response()->json([
-                            'error' => 'card adrealy exist'
-                        ], 500);
-
-                    }
-                }
-
-                CardsUsers::create([
-                    "user_id" => $user_id,
-                    "owner_name" => $cardNameOwner,
-                    "card_number" => Hash::make($cardNumber),
-                    "expiration" => $cardExpiration
-                ]);
-
-                return response()->json([
-                    "response" => "ok",
-                    "type-card" => $type
-                ], 200);
-
-            }
+        // $validator = new CreditCardValidator();
 
 
-            return response()->json([
-                'error' => 'date is not valide'
-            ], 200);
-        }
 
-        return response()->json([
-            'error' => 'unknow type of card'
-        ], 500);
+        // if ($validator->isValid($cardNumber)) {
+
+        //     $type = $validator->getType($cardNumber)->getType();
+
+
+        //     if ($this->dateIsValid($mouth, $year)) {
+
+
+        //         $cards = CardsUsers::where('user_id', $user_id)->get();
+
+
+        //         foreach ($cards as $card) {
+
+        //             if (Hash::check($cardNumber, $card->card_number)) {
+
+        //                 return response()->json([
+        //                     'error' => 'card adrealy exist'
+        //                 ], 500);
+
+        //             }
+        //         }
+
+        //         CardsUsers::create([
+        //             "user_id" => $user_id,
+        //             "owner_name" => $cardNameOwner,
+        //             "card_number" => Hash::make($cardNumber),
+        //             "expiration" => $cardExpiration
+        //         ]);
+
+        //         return response()->json([
+        //             "response" => "ok",
+        //             "type-card" => $type
+        //         ], 200);
+
+        //     }
+
+
+        //     return response()->json([
+        //         'error' => 'date is not valide'
+        //     ], 200);
+        // }
+
+        // return response()->json([
+        //     'error' => 'unknow type of card'
+        // ], 500);
     }
 
     private function dateIsValid($mouth_card, $year_card)

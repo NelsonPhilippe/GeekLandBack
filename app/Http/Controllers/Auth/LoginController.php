@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
 
     public function authenticate(Request $request){
         $credentials = $request->json()->all();

@@ -8,7 +8,6 @@ use App\Product\Articles;
 class HomeController extends Controller{
 
     public function __construct(){
-        // $this->middleware('ip');
     }
 
     public function index(Articles $article){
