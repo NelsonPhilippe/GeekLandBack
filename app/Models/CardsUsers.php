@@ -16,7 +16,7 @@ class CardsUsers extends Model{
         CardsUsers::create([
             "user_id" => $user_id,
             "owner_name" => $owner_name,
-            "card_number" => Hash::make($cardNumber),
+            "card_number" => $cardNumber,
             "expiration" => $cardExpiration
         ]);
     }

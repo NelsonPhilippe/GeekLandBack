@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Commentary extends Model
+class SoldArticleModel extends Model
 {
 
-    protected $fillable = ['commentary', 'deleted'];
+    protected $fillable = [
+        'quantity'
+    ];
 
     protected $guarded = [ 'id', 'user_id', 'article_id'];
 }
