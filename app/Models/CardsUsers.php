@@ -21,4 +21,12 @@ class CardsUsers extends Model{
         ]);
     }
 
+    public static function get_cards($user_id){
+        return CardsUsers::where('user_id', $user_id)->get();
+    }
+
+    public static function remove_card($card_id){
+        CardsUsers::where('id', $card_id)->delete();
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Users\Settings;
 
 use App\Models\CardsUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 use Jlorente\CreditCards\CreditCardValidator;
 
@@ -88,6 +89,25 @@ class Card extends ServiceProvider
         return false;
     }
 
+
+    public function get_cards(){
+
+        $user = $this->request->user();
+
+        $user_id = $user['id'];
+
+        $card = CardsUsers::get_cards($user_id);
+
+        $card_number_hashed = $card['card_number'];
+
+
+        return response();
+
+
+
+
+    }
+
     public function addCard(){
         $user = $this->request->user();
         $user_id = $user['id'];
@@ -115,7 +135,7 @@ class Card extends ServiceProvider
             if (Card::dateIsValid($mouth, $year)) {
 
 
-                $cards = CardsUsers::where('user_id', $user_id)->get();
+                $cards = CardsUsers::get_card($user_id);
 
 
                 foreach ($cards as $card) {

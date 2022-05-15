@@ -60,93 +60,11 @@ class SettingsController extends Controller
 
     public function addCard(Card $card)
     {
-
         return $card->add_card();
-
-
-        // $user = $request->user();
-        // $user_id = $user['id'];
-
-
-        // $cardInfo = $request->json()->all();
-        // $cardNameOwner = $cardInfo['name'];
-        // $cardNumber = $cardInfo['number'];
-        // $cardExpiration = $cardInfo['expiration'];
-
-        // $expirationFormated = preg_split('[/]', $cardExpiration);
-
-        // $mouth = (int) $expirationFormated[0];
-        // $year = (int) $expirationFormated[1];
-
-        // $validator = new CreditCardValidator();
-
-
-
-        // if ($validator->isValid($cardNumber)) {
-
-        //     $type = $validator->getType($cardNumber)->getType();
-
-
-        //     if ($this->dateIsValid($mouth, $year)) {
-
-
-        //         $cards = CardsUsers::where('user_id', $user_id)->get();
-
-
-        //         foreach ($cards as $card) {
-
-        //             if (Hash::check($cardNumber, $card->card_number)) {
-
-        //                 return response()->json([
-        //                     'error' => 'card adrealy exist'
-        //                 ], 500);
-
-        //             }
-        //         }
-
-        //         CardsUsers::create([
-        //             "user_id" => $user_id,
-        //             "owner_name" => $cardNameOwner,
-        //             "card_number" => Hash::make($cardNumber),
-        //             "expiration" => $cardExpiration
-        //         ]);
-
-        //         return response()->json([
-        //             "response" => "ok",
-        //             "type-card" => $type
-        //         ], 200);
-
-        //     }
-
-
-        //     return response()->json([
-        //         'error' => 'date is not valide'
-        //     ], 200);
-        // }
-
-        // return response()->json([
-        //     'error' => 'unknow type of card'
-        // ], 500);
     }
 
-    private function dateIsValid($mouth_card, $year_card)
-    {
-
-        $mouth = (int) date('m');
-        $year = (int) date('y');
-
-
-        if ($mouth_card >= $mouth && $year_card >= $year) {
-            return true;
-        }
-
-        if (
-            $year_card > $year
-        ) {
-            return true;
-        }
-
-        return false;
+    public function get_card(Card $card){
+        return $card->get_cards();
     }
 
 
