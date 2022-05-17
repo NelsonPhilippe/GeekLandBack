@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BasketModel extends Model
+class Basket extends Model
 {
 
     protected $fillable = [
