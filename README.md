@@ -41,7 +41,7 @@ composer install
     - DB_PASSWORD
 - Creer une base de données identique a la valeur "DB_DATABASE".
 
-> Migration de la base de données
+> Migration de la base de données :
 
 ```
 php artisan migrate
@@ -53,4 +53,12 @@ Si tout ce passe correctement vous devrier pouvoir lancer le serveur de producti
 
 ```
 php artisan serv
+```
+
+### Creation d'environnement de production distant
+
+Le fichier Dockerfile permet la création d'une image docker ave un serveur Laravel.
+
+```
+docker run -d -v "/path/to/file":"/app"
 ```
