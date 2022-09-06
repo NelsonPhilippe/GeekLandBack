@@ -2,7 +2,7 @@
 
 ## Présentation
 
-GeekLand est un projet de site E-Commerce réalisé en collaboration avec [Remy Cuvilier](https://github.com/Kayyhan) et Michaël Cornil. 
+GeekLand est un projet de site E-Commerce réalisé en collaboration avec [Remy Cuvilier](https://github.com/Kayyhan) et [Michaël Cornil](https://github.com/Michael-Cornil). 
 Celui ci a été réalisé lors d'une formation développeur web et web mobile entre le 01/12/2021 et le 09/09/2022.
 
 Le projet est divisé en deux environnement une partie [Front](https://github.com/XiliTra/GeekLandFront), et cette partie Back, le projet n'a pas pu être finalisé pendant la formation.
