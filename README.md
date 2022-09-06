@@ -22,4 +22,3 @@ npm install (ajouter "--force" si un problème survient pendant l'installation)
 npm start
 ```
 
-# git pull origin main
