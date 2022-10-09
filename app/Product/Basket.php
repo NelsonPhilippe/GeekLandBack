@@ -2,6 +2,7 @@
 
 namespace App\Product;
 
+use App\Models\Article;
 use App\Models\Basket as ModelsBasket;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,7 @@ class Basket {
 
     private Request $request;
 
-    public function _contruct(Request $request){
+    public function __construct(Request $request){
         $this->request = $request;
     }
 

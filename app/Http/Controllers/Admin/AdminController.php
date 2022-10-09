@@ -16,7 +16,7 @@ class AdminController extends Controller
         return null;
     }
 
-    public function createArticle(Request $request)
+    public function create_article(Request $request)
     {
 
         $user = $request->user();

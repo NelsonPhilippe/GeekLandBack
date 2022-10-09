@@ -15,7 +15,7 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::post('/search', [ArticleController::class, 'getArticlesWithName']);
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'admin'], function (){
-    Route::post('/register_articles', [AdminController::class, 'createArticle']);
+    Route::post('/register_articles', [AdminController::class, 'create_article']);
 });
 
 

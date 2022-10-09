@@ -10,17 +10,6 @@ use Illuminate\Http\Request;
 class SettingsController extends Controller
 {
 
-
-    public function index(){
-
-
-
-    }
-
-
-    public function information() {
-    }
-
     public function profile(Profile $profile) {
         return $profile->get_profile();
     }
@@ -36,16 +25,6 @@ class SettingsController extends Controller
     public function get_card(Card $card){
         return $card->get_cards();
     }
-
-
-    // public function setProfilePicture(Request $request){
-    //     $data = $request->json()->all();
-
-    //     $user_id = $request->user()['id'];
-    //     $uuid_pictures = $data['picture_uuid'];
-
-
-    // }
 
 
 }

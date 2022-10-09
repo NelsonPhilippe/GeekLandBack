@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Product\Basket;
 use App\Users\Settings\Card;
 use App\Users\Settings\Profile;
 use App\Users\User;
@@ -28,6 +29,12 @@ class UserServiceProvider extends ServiceProvider{
 
             $request = app(\Illuminate\Http\Request::class);
             return app(Profile::class, [$request]);
+        });
+
+        $this->app->singleton("basket", function() {
+
+            $request = app(\Illuminate\Http\Request::class);
+            return app(Basket::class, [$request]);
         });
     }
 
