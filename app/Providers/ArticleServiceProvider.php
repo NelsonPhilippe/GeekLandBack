@@ -21,6 +21,7 @@ class ArticleServiceProvider extends ServiceProvider
             return app(Article::class, [$request]);
 
         });
+
     }
 
     /**

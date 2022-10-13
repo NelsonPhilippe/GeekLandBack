@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\ArticleController;
-use App\Models\Article;
 
 Route::get('/home', [HomeController::class, 'index']);
 

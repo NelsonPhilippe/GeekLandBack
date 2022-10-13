@@ -49,7 +49,7 @@ class User {
         $user = UserModel::where('email', $email)->first();
 
         if($user == null){
-            $user = User::create([
+            $user = UserModel::create([
                 'username' => $username,
                 'email' => $email,
                 'password' => $passwordEncrypted,
@@ -66,7 +66,7 @@ class User {
                 'url_image_profile' => $url
             ]);
 
-            $token = $user->createToken(App::environment('JWT_SECRET'))->plainTextToken;
+            $token = $user->createToken(env('JWT_SECRET'))->plainTextToken;
 
 
             return response()->json([
@@ -105,7 +105,7 @@ class User {
 
         if($user != null){
             if(Hash::check($password, $user->password)){
-                $token = $user->createToken('myapptoken')->plainTextToken;
+                $token = $user->createToken(env('JWT_SECRET'))->plainTextToken;
                 return response()->json([
                     'status' => 'success',
                     'token' => $token
