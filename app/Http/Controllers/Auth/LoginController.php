@@ -20,5 +20,11 @@ class LoginController extends Controller {
         return $user->remove_user();
     }
 
+    public function reset_password(){
+        
+        
+
+    }
+
 
 }

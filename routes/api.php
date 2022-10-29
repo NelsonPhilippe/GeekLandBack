@@ -12,6 +12,7 @@ Route::get('/home', [HomeController::class, 'index']);
 
 
 Route::post('/search', [ArticleController::class, 'getArticlesWithName']);
+Route::post('/reset_password', [ArticleController::class, 'reset_password']);
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'admin'], function (){
     Route::post('/register_articles', [AdminController::class, 'create_article']);
